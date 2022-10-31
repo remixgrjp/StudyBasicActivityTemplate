@@ -1,32 +1,28 @@
 package asia.remix.myfragment;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import android.view.Menu;
-import android.view.MenuItem;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity{
-
-	private AppBarConfiguration appBarConfiguration;
+	static final String TAG= "MainActivity";
+	AppBarConfiguration appBarConfiguration;
 
 	@Override
 	protected void onCreate( Bundle savedInstanceState ){
 		super.onCreate( savedInstanceState );
-
+		Log.d( TAG, "onCreate()" );
 		setContentView( R.layout.activity_main );
 		Toolbar toolbar = findViewById( R.id.toolbar );
 		setSupportActionBar( toolbar );
@@ -39,9 +35,44 @@ public class MainActivity extends AppCompatActivity{
 		fab.setOnClickListener( new View.OnClickListener(){
 			@Override
 			public void onClick( View view ){
-				Snackbar.make( view, "Replace with your own action", Snackbar.LENGTH_LONG ).setAction( "Action", null ).show();
+				Log.d( TAG, "onClick()" );
 			}
 		} );
+	}
+
+	@Override
+	public void onStart(){//onCreate → onStart → onResume ／ onRestart → onStart → onResume
+		super.onStart();
+		Log.d( TAG, "onStart()" );
+	}
+
+	@Override
+	public void onResume(){
+		super.onResume();
+		Log.d( TAG, "onResume()" );
+	}
+
+	@Override
+	public void onPause(){//→ onResume()
+		super.onPause();
+		Log.d( TAG, "onPause()" );
+	}
+
+	@Override
+	public void onStop(){//→ onRestart() → onStart()
+		super.onStop();
+		Log.d( TAG, "onStop()" );
+	}
+
+	@Override
+	public void onDestroy(){//onPause() → onStop() → onDestroy()
+		super.onDestroy();
+		Log.d( TAG, "onDestroy()" );
+	}
+
+	@Override
+	public void onWindowFocusChanged( boolean hasFocus ){
+		Log.d( TAG, "onWindowFocusChanged()" );
 	}
 
 	@Override
