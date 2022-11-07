@@ -6,13 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 public class SecondFragment extends Fragment{
 	static final String TAG= "SecondFragment";
+	static final String KEY= "SecondFragment";//for recevie key
 
 	@Override
 	public void onCreate( Bundle savedInstanceState ){
@@ -37,6 +40,11 @@ public class SecondFragment extends Fragment{
 				NavHostFragment.findNavController( SecondFragment.this ).navigate( R.id.action_SecondFragment_to_FirstFragment );
 			}
 		} );
+
+		TextView textView = view.findViewById( R.id.textview_second );
+		Bundle b= ( null == getArguments() ? new Bundle() : getArguments() );
+		String s= requireActivity().getString( R.string.hello_second_fragment );
+		textView.setText( String.format( s, b.getString( KEY, "-" ) ) );
 	}
 
 	@Override
