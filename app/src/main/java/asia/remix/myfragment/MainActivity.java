@@ -6,8 +6,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -36,6 +38,19 @@ public class MainActivity extends AppCompatActivity{
 			@Override
 			public void onClick( View view ){
 				Log.d( TAG, "onClick()" );
+				MyDialog.newInstance( TAG ).show( getSupportFragmentManager(), "Activity -> MyDialog" );
+			}
+		} );
+
+		//Recive Dialog / Activity
+		getSupportFragmentManager().setFragmentResultListener( MyDialog.KEY, MainActivity.this, new FragmentResultListener(){
+			@Override
+			public void onFragmentResult( @NonNull String key, @NonNull Bundle bundle ){
+				Log.d( TAG, "onFragmentResult()" );
+				// noinspection ConstantConditions == @SuppressWarnings( "ConstantConditions" )
+				if( null != key && key.equals( MyDialog.KEY ) ){
+					Log.d( TAG, String.format( "[%s][%s]", key, bundle.getString( MyDialog.RETERN1 ) ) );
+				}
 			}
 		} );
 	}

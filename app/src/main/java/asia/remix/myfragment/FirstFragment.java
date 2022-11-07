@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.navigation.fragment.NavHostFragment;
 
 public class FirstFragment extends Fragment{
@@ -46,6 +47,27 @@ public class FirstFragment extends Fragment{
 		Bundle b= ( null == getArguments() ? new Bundle() : getArguments() );
 		String s= requireActivity().getString( R.string.hello_first_fragment );
 		textView.setText( String.format( s, b.getString( KEY, "-" ) ) );
+
+		textView.setOnClickListener( new View.OnClickListener(){
+			@Override
+			public void onClick( View view ){
+				MyDialog.newInstance( TAG ).show( getParentFragmentManager(), "Fragment1 -> MyDialog" );
+			}
+		} );
+
+		//Recive Dialog / Fragment
+		getParentFragmentManager().setFragmentResultListener( MyDialog.KEY, this, new FragmentResultListener(){
+			@Override
+			public void onFragmentResult( @NonNull String key, @NonNull Bundle bundle ){
+				Log.d( TAG, "onFragmentResult()" );
+				// noinspection ConstantConditions == @SuppressWarnings( "ConstantConditions" )
+				if( null != key && key.equals( MyDialog.KEY ) ){
+					String s= String.format( "[%s][%s]", key, bundle.getString( MyDialog.RETERN1, "NULL" ) );
+					Log.d( TAG, s );
+					textView.setText( s );
+				}
+			}
+		} );
 	}
 
 	@Override

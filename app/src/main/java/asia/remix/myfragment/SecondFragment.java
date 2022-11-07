@@ -47,6 +47,27 @@ public class SecondFragment extends Fragment{
 		Bundle b= ( null == getArguments() ? new Bundle() : getArguments() );
 		String s= requireActivity().getString( R.string.hello_second_fragment );
 		textView.setText( String.format( s, b.getString( KEY, "-" ) ) );
+
+		textView.setOnClickListener( new View.OnClickListener(){
+			@Override
+			public void onClick( View view ){
+				MyDialog.newInstance( TAG ).show( getParentFragmentManager(), "Fragment2 -> MyDialog" );
+			}
+		} );
+
+		//Recive Dialog / Fragment
+		getParentFragmentManager().setFragmentResultListener( MyDialog.KEY, this, new FragmentResultListener(){
+			@Override
+			public void onFragmentResult( @NonNull String key, @NonNull Bundle bundle ){
+				Log.d( TAG, "onFragmentResult()" );
+				// noinspection ConstantConditions == @SuppressWarnings( "ConstantConditions" )
+				if( null != key && key.equals( MyDialog.KEY ) ){
+					String s= String.format( "[%s][%s]", key, bundle.getString( MyDialog.RETERN1, "NULL" ) );
+					Log.d( TAG, s );
+					textView.setText( s );
+				}
+			}
+		} );
 	}
 
 	@Override
