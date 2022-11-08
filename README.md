@@ -2,17 +2,19 @@
 ## Basic Activity Template (Navigation Fragment)
 commit No.75b83b3846e5796639eeabb6fd88cad9d0e5ed13
 ## step 1. remove binding
-commit No.8909f3fc1af6e3500b90eada4ddf59a49972868b
+[difference source](https://github.com/remixgrjp/StudyBasicActivityTemplate/commit/8909f3fc1af6e3500b90eada4ddf59a49972868b)
 ## step 2. life cycle log
-commit No.56629759431c7e9156c717f7fc5049a0d88f306d
+[difference source](https://github.com/remixgrjp/StudyBasicActivityTemplate/commit/81e8a7f471baba1cc8ec392c23c079c81399f5d0)
 ## step 3. First fragment send messages -> Second fragment receive messages.
-commit No.	2dd383fcc98782daa28028cdef1531817c2d8157
+[difference source](https://github.com/remixgrjp/StudyBasicActivityTemplate/commit/574a3498fafa6136ae9f053ea3e699125f5a9833)
+
 <a target="img" href="./img/p010.png"><img width="600px" src="./img/p010.png"></a>
 ## step 4. Second fragment send messages -> First fragment receive messages.
-commit No.	ee91a7c9e26e14783057b685fdc2cecea5e0f3d3
+[difference source](https://github.com/remixgrjp/StudyBasicActivityTemplate/commit/074a6342d6fd49fd986c697646891f77b893d5cf)
+
 <a target="img" href="./img/p020.png"><img width="600px" src="./img/p020.png"></a>
 ## step 5. Callable DialogFragment both  Activity and Fragment
-commit No.	9989d422d7da8149122c1eab43a2ebe78e6d67c9
+[difference source](https://github.com/remixgrjp/StudyBasicActivityTemplate/commit/1ec6c3f53580522494058cbdf099c48b50ae4df8)
 
 from first fragment
 
