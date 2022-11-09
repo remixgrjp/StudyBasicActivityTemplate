@@ -14,7 +14,8 @@ public class MyDialog extends DialogFragment{
 	static final String TAG= "MyDialog";
 	static final String KEY= "MyDialog";//for recevie key
 	static final String RETERN1= "1";//for return key
-	static final private String PARAM1= "1";
+	static final private String PARAM1= "1";//for setArguments Bundle, savedInstanceState Bundle
+	EditText editText;
 
 	/**
 	* @param s default input value
@@ -34,18 +35,17 @@ public class MyDialog extends DialogFragment{
 	@Override
 	public Dialog onCreateDialog( Bundle savedInstanceState ){
 		Log.d( TAG, "onCreateDialog()" );
+
 		Bundle b= getArguments();
 		if( null==b ){
 			b= new Bundle();
 		}
+		editText = new EditText( getActivity() );
+		String s= ( (null==savedInstanceState) ? b.getString( PARAM1, "" ) : savedInstanceState.getString( PARAM1 ) );
+		editText.setText( s, android.widget.TextView.BufferType.NORMAL );
 
 		AlertDialog.Builder builder = new AlertDialog.Builder( getActivity() );
-		EditText editText = new EditText( getActivity() );
 		builder.setView( editText );
-		String s;
-		if( null != ( s= b.getString( PARAM1 ) ) ){
-			editText.setText( s, android.widget.TextView.BufferType.NORMAL );
-		}
 		builder.setPositiveButton( "ok", new DialogInterface.OnClickListener(){
 			@Override
 			public void onClick( DialogInterface di, int i ){
@@ -62,5 +62,17 @@ public class MyDialog extends DialogFragment{
 			}
 		} );
 		return builder.create();
+	}
+
+	/**
+	* Saving state with fragments
+	* https://developer.android.com/guide/fragments/saving-state
+	* not need: if EditText == layout xml and resource id
+	* @param b Saved Instance State
+	*/
+	@Override
+	public void onSaveInstanceState( @NonNull Bundle b ){
+		super.onSaveInstanceState( b );
+		b.putString( PARAM1, editText.getText().toString() );
 	}
 }
