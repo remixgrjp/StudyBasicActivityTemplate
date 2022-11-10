@@ -3,6 +3,9 @@ package asia.remix.myfragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,6 +24,7 @@ public class FirstFragment extends Fragment{
 	public void onCreate( Bundle savedInstanceState ){
 		super.onCreate( savedInstanceState );
 		Log.d( TAG, "onCreate()" );
+		setHasOptionsMenu( true );//menu move from MainActivity
 	}
 
 	@Override
@@ -104,5 +108,27 @@ public class FirstFragment extends Fragment{
 	public void onDestroyView(){
 		super.onDestroyView();
 		Log.d( TAG, "onDestroyView()" );
+	}
+
+	@Override
+	public void onCreateOptionsMenu( @NonNull Menu menu, MenuInflater inflater ){
+		inflater.inflate( R.menu.menu_main, menu );
+		super.onCreateOptionsMenu( menu,inflater );
+	}
+
+	@Override
+	public boolean onOptionsItemSelected( MenuItem item ){
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+
+		//noinspection SimplifiableIfStatement
+		if( id == R.id.action_settings ){
+			MyDialog.newInstance( TAG ).show( getParentFragmentManager(), "Fragment1 -> MyDialog" );
+			return true;
+		}
+
+		return super.onOptionsItemSelected( item );
 	}
 }
